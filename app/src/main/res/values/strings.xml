@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="title_activity_notes_list">NotesListActivity</string>
+    <string name="add_first_note">Add a Note</string>
+    <string name="signin_usr">Enter Email</string>
+    <string name="sigin_pass">Enter Password</string>
+    <string name="signin_btn">Sign in</string>
+    <string name="createAcctxt">Create Account</string>
+    <string name="fullNameTxt">Full Name</string>
+    <string name="emailTxt">Email</string>
+    <string name="passTxt">Password</string>
+    <string name="createBtn">Create Account</string>
+    <string name="dummy_title">Dummy Title</string>
+    <string name="desc_dummy">Dummy Description</string>
+    <string name="menu_signout">Sign Out</string>
+    <string name="addTitle">Add Title</string>
+    <string name="addBody">Add Note Body</string>
+    <string name="add_note">Add Note</string>
+    <string name="editBtnTxt">Edit</string>
+    <string name="deleteBtnTxt">Delete</string>
+    <string name="headerTitle">Title</string>
+    <string name="delete">DELETE</string>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray">
+
+    <RelativeLayout
+        android:padding="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/title_mod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/addTitle"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/body_mod"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:layout_below="@id/title_mod"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/addBody"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:id="@+id/save_mod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/body_mod"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorAccent"
+            android:text="@string/add_note"
+            android:textColor="@android:color/white"
+            />
+    </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
