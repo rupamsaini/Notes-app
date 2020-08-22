@@ -1,25 +1,29 @@
-package com.rupam.notes.Activities
+package com.rupam.notes.Fragments
 
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.rupam.notes.R
-import java.util.*
+import java.util.HashMap
 
-class NoteDetailsActivity : AppCompatActivity() {
+
+class ExpandedNoteFragment : Fragment() {
+
     private lateinit var title: TextView
     private lateinit var body: TextView
     private lateinit var editBtn: Button
@@ -39,21 +43,26 @@ class NoteDetailsActivity : AppCompatActivity() {
     private lateinit var key: String
     private lateinit var progressDialog: ProgressDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_note_details)
 
-        supportActionBar!!.hide()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_expanded_note, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         mAuth = FirebaseAuth.getInstance()
         currentUser = mAuth.currentUser!!
         mDatabase = FirebaseDatabase.getInstance()
         mRef = mDatabase.reference.child("Users").child(currentUser.uid)
-        extras = intent.extras!!
-        title = findViewById(R.id.titleDET)
-        body = findViewById(R.id.bodyDET)
-        editBtn = findViewById(R.id.editBtn)
-        dltBtn = findViewById(R.id.dltBtn)
-        progressDialog = ProgressDialog(this)
+//        extras = intent.extras!!
+//        title = titleDET
+//        body = bodyDET
+        editBtn = editBtn
+        dltBtn = dltBtn
+        progressDialog = ProgressDialog(context)
         getTitle = extras.getString("title")!!
         getBody = extras.getString("body")!!
         title.text = getTitle
@@ -69,15 +78,15 @@ class NoteDetailsActivity : AppCompatActivity() {
         })
         dltBtn.setOnClickListener(View.OnClickListener {
             mRef.child(key).removeValue()
-            val goBack = Intent(this@NoteDetailsActivity, NotesListActivity::class.java)
-            goBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(goBack)
-            Toast.makeText(this@NoteDetailsActivity, "Note Deleted", Toast.LENGTH_SHORT).show()
+//            val goBack = Intent(context, NotesListActivity::class.java)
+//            goBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//            startActivity(goBack)
+            Toast.makeText(context, "Note Deleted", Toast.LENGTH_SHORT).show()
         })
     }
 
     private fun createPopup() {
-        dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder = AlertDialog.Builder(requireContext())
         val view = layoutInflater.inflate(R.layout.modify_note, null)
         edit_title = view.findViewById(R.id.title_mod)
         edit_body = view.findViewById(R.id.body_mod)
@@ -105,9 +114,10 @@ class NoteDetailsActivity : AppCompatActivity() {
             newNote["key"] = currentUser.uid
             mRef.child(key).updateChildren(newNote)
             progressDialog.dismiss()
-            startActivity(Intent(this@NoteDetailsActivity, NotesListActivity::class.java))
-            finish()
-            Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show()
+//            startActivity(Intent(context, NotesListActivity::class.java))
+//            finish()
+            Toast.makeText(context, "Note Saved", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

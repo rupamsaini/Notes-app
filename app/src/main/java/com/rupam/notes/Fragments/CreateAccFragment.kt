@@ -1,20 +1,25 @@
-package com.rupam.notes.Activities
+package com.rupam.notes.Fragments
 
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.rupam.notes.R
+import kotlinx.android.synthetic.main.fragment_create_acc.*
 
-class CreateAccActivity : AppCompatActivity() {
+
+class CreateAccFragment : Fragment() {
+
     private lateinit var fullName: EditText
     private lateinit var email: EditText
     private lateinit var password: EditText
@@ -24,26 +29,32 @@ class CreateAccActivity : AppCompatActivity() {
     private lateinit var progressDialog: ProgressDialog
     private lateinit var mAuth: FirebaseAuth
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_acc)
 
-        supportActionBar!!.hide()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_create_acc, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         mAuth = FirebaseAuth.getInstance()
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase.reference.child("Users")
-        progressDialog = ProgressDialog(this)
-        fullName = findViewById(R.id.fullNameID)
-        email = findViewById(R.id.emailCreateID)
-        password = findViewById(R.id.passCreateID)
-        createBtn = findViewById(R.id.createAccBtnID)
+        progressDialog = ProgressDialog(context)
+        fullName = fullNameID
+        email = emailCreateID
+        password = passCreateID
+        createBtn = createAccBtnID
 
 
 //        TODO: create Account by createAccount method
 //        TODO: Push the details to the db
         createBtn.setOnClickListener(View.OnClickListener { createNewAccount() })
+
     }
+
 
     private fun createNewAccount() {
 
@@ -62,9 +73,9 @@ class CreateAccActivity : AppCompatActivity() {
                             progressDialog.dismiss()
 
                             //Send user to NotesList
-                            val intent = Intent(this@CreateAccActivity, NotesListActivity::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            startActivity(intent)
+//                            val intent = Intent(context, NotesListActivity::class.java)
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                            startActivity(intent)
                         }
                     }
         }
@@ -75,9 +86,13 @@ class CreateAccActivity : AppCompatActivity() {
         super.onStart()
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
-            startActivity(Intent(this@CreateAccActivity, NotesListActivity::class.java))
-            finish()
-            Toast.makeText(this, "You are already Signed in", Toast.LENGTH_SHORT).show()
+//            startActivity(Intent(context, NotesListActivity::class.java))
+//            finish()
+            Toast.makeText(context, "You are already Signed in", Toast.LENGTH_SHORT).show()
         }
     }
+
+
+
+
 }

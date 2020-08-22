@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.rupam.notes.Activities.NoteDetailsActivity
 import com.rupam.notes.Model.Note
 import com.rupam.notes.R
 import java.text.DateFormat
@@ -57,11 +56,11 @@ class NoteAdapter(private val context: Context, private val noteList: MutableLis
                 val selectedKey = selectedItem?.key
 
 //                    TODO: Goto detailsActivity with details
-                val intent = Intent(context, NoteDetailsActivity::class.java)
-                intent.putExtra("title", title.text.toString())
-                intent.putExtra("body", body.text.toString())
-                intent.putExtra("userKey", selectedKey) //Sends the selected key
-                ctx.startActivity(intent)
+////                val intent = Intent(context, NoteDetailsActivity::class.java)
+//                intent.putExtra("title", title.text.toString())
+//                intent.putExtra("body", body.text.toString())
+//                intent.putExtra("userKey", selectedKey) //Sends the selected key
+//                ctx.startActivity(intent)
             }
         }
     }

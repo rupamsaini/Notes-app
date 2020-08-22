@@ -1,13 +1,12 @@
-package com.rupam.notes.Activities
+package com.rupam.notes.Fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -15,9 +14,11 @@ import com.google.firebase.database.*
 import com.rupam.notes.Data.NoteAdapter
 import com.rupam.notes.Model.Note
 import com.rupam.notes.R
-import java.util.*
+import kotlinx.android.synthetic.main.content_notes_list.*
+import java.util.ArrayList
 
-class NotesListActivity : AppCompatActivity() {
+
+class NotesListFragment : Fragment() {
 
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var firebaseAuth: FirebaseAuth
@@ -27,13 +28,15 @@ class NotesListActivity : AppCompatActivity() {
     private lateinit var noteAdapter: NoteAdapter
     private lateinit var noteList: MutableList<Note?>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notes_list)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar!!.title = "Your Notes"
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_notes_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         firebaseAuth = FirebaseAuth.getInstance()
         currentUser = firebaseAuth.currentUser!!
@@ -41,15 +44,15 @@ class NotesListActivity : AppCompatActivity() {
         databaseReference = firebaseDatabase.reference.child("Users").child(currentUser.uid)
         databaseReference.keepSynced(true)
         noteList = ArrayList()
-        recyclerView = findViewById(R.id.recyclerViewId)
+        recyclerView = recyclerViewId
         recyclerView.setHasFixedSize(true)
-        val linearLayoutManager = LinearLayoutManager(this)
+        val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
         recyclerView.setLayoutManager(linearLayoutManager)
         recyclerView.setItemAnimator(DefaultItemAnimator())
-        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        noteAdapter = NoteAdapter(this@NotesListActivity, noteList)
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        noteAdapter = NoteAdapter(requireContext(), noteList)
         ItemTouchHelper(itemTouch).attachToRecyclerView(recyclerView)
         recyclerView.adapter = noteAdapter
     }
@@ -68,7 +71,7 @@ class NotesListActivity : AppCompatActivity() {
             }
             noteList.removeAt(viewHolder.adapterPosition)
             noteAdapter.notifyDataSetChanged()
-            Toast.makeText(this@NotesListActivity, "Note Deleted", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Note Deleted", Toast.LENGTH_SHORT).show()
 
 //            Snackbar snackbar = Snackbar
 //                    .make(coordinatorLayout, " removed from cart!", Snackbar.LENGTH_LONG);
@@ -87,22 +90,6 @@ class NotesListActivity : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.addNew -> startActivity(Intent(this@NotesListActivity, AddNewNoteActivity::class.java))
-            R.id.menu_signout -> {
-                firebaseAuth.signOut()
-                startActivity(Intent(this@NotesListActivity, MainActivity::class.java))
-                Toast.makeText(this, "Signed Out", Toast.LENGTH_SHORT).show()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.sign_out_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
     override fun onStart() {
         super.onStart()
@@ -122,39 +109,7 @@ class NotesListActivity : AppCompatActivity() {
             override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
             override fun onCancelled(databaseError: DatabaseError) {}
         })
-    } //    @Override
-    //    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-    //
-    //        if (viewHolder instanceof NoteAdapter.ViewHolder) {
-    //            // get the removed item name to display it in snack bar
-    //            String name = noteList.get(viewHolder.getAdapterPosition()).getName();
-    //
-    //            // backup of removed item for undo purpose
-    //            final Note deletedItem = noteList.get(viewHolder.getAdapterPosition());
-    //            final int deletedIndex = viewHolder.getAdapterPosition();
-    //
-    //            // remove the item from recycler view
-    //            noteAdapter.removeItem(viewHolder.getAdapterPosition());
-    //            Note selectedItem = noteList.get(viewHolder.getAdapterPosition());
-    //            String selectedKey = selectedItem.getKey();
-    //
-    //            databaseReference.child(selectedKey).removeValue();
-    //            noteList.remove(viewHolder.getAdapterPosition());
-    //            noteAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-    //
-    //            // showing snack bar with Undo option
-    //            Snackbar snackbar = Snackbar
-    //                    .make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);
-    //            snackbar.setAction("UNDO", new View.OnClickListener() {
-    //                @Override
-    //                public void onClick(View view) {
-    //
-    //                    // undo is selected, restore the deleted item
-    //                    noteAdapter.restoreItem(deletedItem, deletedIndex);
-    //                }
-    //            });
-    //            snackbar.setActionTextColor(Color.YELLOW);
-    //            snackbar.show();
-    //        }
-    //}
+    }
+
+
 }

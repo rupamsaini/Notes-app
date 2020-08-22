@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/notesListFragment">
+
+    <fragment
+        android:id="@+id/notesListFragment"
+        android:name="com.rupam.notes.Fragments.NotesListFragment"
+        android:label="fragment_notes_list"
+        tools:layout="@layout/fragment_notes_list" />
+    <fragment
+        android:id="@+id/createAccFragment"
+        android:name="com.rupam.notes.Fragments.CreateAccFragment"
+        android:label="fragment_create_acc"
+        tools:layout="@layout/fragment_create_acc" />
+    <fragment
+        android:id="@+id/addNewNoteFragment"
+        android:name="com.rupam.notes.Fragments.AddNewNoteFragment"
+        android:label="fragment_add_new_note"
+        tools:layout="@layout/fragment_add_new_note" />
+    <fragment
+        android:id="@+id/expandedNoteFragment"
+        android:name="com.rupam.notes.Fragments.ExpandedNoteFragment"
+        android:label="fragment_expanded_note"
+        tools:layout="@layout/fragment_expanded_note" />
+</navigation>
