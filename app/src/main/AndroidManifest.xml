@@ -12,13 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".OfflineFirebase">
-        <activity android:name=".Activities.AddNewNoteActivity"></activity>
-        <activity android:name=".Activities.CreateAccActivity" />
-        <activity android:name=".Activities.NoteDetailsActivity" />
-        <activity
-            android:name=".Activities.NotesListActivity"
-            android:label="@string/title_activity_notes_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,10 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -19,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.rupam.notes.R
+import kotlinx.android.synthetic.main.fragment_expanded_note.*
 import java.util.HashMap
 
 
@@ -26,8 +25,8 @@ class ExpandedNoteFragment : Fragment() {
 
     private lateinit var title: TextView
     private lateinit var body: TextView
-    private lateinit var editBtn: Button
-    private lateinit var dltBtn: Button
+//    private lateinit var editButton: Button
+//    private lateinit var deleteBtn: Button
     private lateinit var extras: Bundle
     private lateinit var alertDialog: AlertDialog
     private lateinit var dialogBuilder: AlertDialog.Builder
@@ -47,6 +46,7 @@ class ExpandedNoteFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_expanded_note, container, false)
     }
 
@@ -58,31 +58,31 @@ class ExpandedNoteFragment : Fragment() {
         mDatabase = FirebaseDatabase.getInstance()
         mRef = mDatabase.reference.child("Users").child(currentUser.uid)
 //        extras = intent.extras!!
-//        title = titleDET
-//        body = bodyDET
-        editBtn = editBtn
-        dltBtn = dltBtn
+        title = titleDET
+        body = bodyDET
+//        editButton = editBtn
+//        deleteBtn = dltBtn
         progressDialog = ProgressDialog(context)
-        getTitle = extras.getString("title")!!
-        getBody = extras.getString("body")!!
+        getTitle = arguments?.getString("title")!!
+        getBody = arguments?.getString("body")!!
         title.text = getTitle
         body.text = getBody
         body.movementMethod = ScrollingMovementMethod()
 
 //        Getting key to determine which Unique key to be delete from FB
-        key = extras.getString("userKey").toString()
+        key = arguments?.getString("userKey").toString()
 
 //       Implement modification button
-        editBtn.setOnClickListener(View.OnClickListener { //                Toast.makeText(NoteDetailsActivity.this, key, Toast.LENGTH_SHORT).show();
-            createPopup()
-        })
-        dltBtn.setOnClickListener(View.OnClickListener {
-            mRef.child(key).removeValue()
-//            val goBack = Intent(context, NotesListActivity::class.java)
-//            goBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//            startActivity(goBack)
-            Toast.makeText(context, "Note Deleted", Toast.LENGTH_SHORT).show()
-        })
+//        editButton.setOnClickListener(View.OnClickListener { //                Toast.makeText(NoteDetailsActivity.this, key, Toast.LENGTH_SHORT).show();
+//            createPopup()
+//        })
+//        deleteBtn.setOnClickListener(View.OnClickListener {
+//            mRef.child(key).removeValue()
+////            val goBack = Intent(context, NotesListActivity::class.java)
+////            goBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+////            startActivity(goBack)
+//            Toast.makeText(context, "Note Deleted", Toast.LENGTH_SHORT).show()
+//        })
     }
 
     private fun createPopup() {
@@ -118,6 +118,12 @@ class ExpandedNoteFragment : Fragment() {
 //            finish()
             Toast.makeText(context, "Note Saved", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        activity?.menuInflater?.inflate(R.menu.edit_dlt_menu, menu)
+         super.onCreateOptionsMenu(menu, inflater)
     }
 
 }

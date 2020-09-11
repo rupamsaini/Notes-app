@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.rupam.notes.Constants
 import com.rupam.notes.R
 import kotlinx.android.synthetic.main.fragment_create_acc.*
 
@@ -26,7 +27,6 @@ class CreateAccFragment : Fragment() {
     private lateinit var createBtn: Button
     private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var mDatabase: FirebaseDatabase
-    private lateinit var progressDialog: ProgressDialog
     private lateinit var mAuth: FirebaseAuth
 
 
@@ -41,8 +41,7 @@ class CreateAccFragment : Fragment() {
 
         mAuth = FirebaseAuth.getInstance()
         mDatabase = FirebaseDatabase.getInstance()
-        mDatabaseReference = mDatabase.reference.child("Users")
-        progressDialog = ProgressDialog(context)
+        mDatabaseReference = mDatabase.reference.child(Constants.USERS)
         fullName = fullNameID
         email = emailCreateID
         password = passCreateID
@@ -51,7 +50,11 @@ class CreateAccFragment : Fragment() {
 
 //        TODO: create Account by createAccount method
 //        TODO: Push the details to the db
-        createBtn.setOnClickListener(View.OnClickListener { createNewAccount() })
+        createBtn.setOnClickListener {
+
+            progressBarLayout.visibility = View.VISIBLE
+            createNewAccount()
+        }
 
     }
 
@@ -62,20 +65,15 @@ class CreateAccFragment : Fragment() {
         val getEmail = email.text.toString()
         val getPass = password.text.toString()
         if (!TextUtils.isEmpty(fullName.text) && !TextUtils.isEmpty(email.text) && !TextUtils.isEmpty(password.text)) {
-            progressDialog.setMessage("Creating Account")
-            progressDialog.show()
+
             mAuth.createUserWithEmailAndPassword(getEmail, getPass)
                     .addOnSuccessListener { authResult ->
                         if (authResult != null) {
                             val userId = mAuth.currentUser!!.uid
                             mDatabaseReference.child(userId)
                             //                            currentUserDB.child("fullName").setValue(getName);
-                            progressDialog.dismiss()
+                            progressBarLayout.visibility = View.GONE
 
-                            //Send user to NotesList
-//                            val intent = Intent(context, NotesListActivity::class.java)
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//                            startActivity(intent)
                         }
                     }
         }
@@ -86,13 +84,9 @@ class CreateAccFragment : Fragment() {
         super.onStart()
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
-//            startActivity(Intent(context, NotesListActivity::class.java))
-//            finish()
             Toast.makeText(context, "You are already Signed in", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
 
 }

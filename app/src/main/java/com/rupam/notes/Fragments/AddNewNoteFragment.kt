@@ -22,7 +22,7 @@ class AddNewNoteFragment : Fragment() {
 
     private lateinit var addTitle: EditText
     private lateinit var addBody: EditText
-    private lateinit var addNoteBtn: Button
+    private lateinit var addNoteButton: Button
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
     private lateinit var currentUser: FirebaseUser
@@ -45,7 +45,7 @@ class AddNewNoteFragment : Fragment() {
         databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(currentUser.uid)
         addTitle = addTitleET
         addBody = addBodyET
-        addNoteBtn = addNoteBtn
+        addNoteButton = addNoteBtn
         progressDialog = ProgressDialog(context)
         addNoteBtn.setOnClickListener(View.OnClickListener { //Posting to db
             AddNote()

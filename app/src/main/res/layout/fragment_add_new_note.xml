@@ -20,18 +20,22 @@
             android:layout_marginTop="15dp"
             android:hint="@string/addTitle"
             android:inputType="textPersonName"
+            android:background="@drawable/edit_text_gray_bg"
+            android:padding="10dp"
+            android:textColor="#000"
             />
 
         <EditText
             android:id="@+id/addBodyET"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/input_outline"
+            android:background="@drawable/edit_text_gray_bg"
+            android:backgroundTint="#FFE8E8"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="@string/addBody"
+            android:hint="Write something here..."
             android:inputType="textMultiLine"
-            android:padding="8dp"
+            android:padding="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -42,12 +46,16 @@
 
         <Button
             android:id="@+id/addNoteBtn"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_note"
-            android:background="@color/colorAccent"
-            android:textColor="@android:color/white"
+            android:text="Done"
+            android:background="#FFF68E"
+            android:textColor="@android:color/black"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             />
     </RelativeLayout>
 </FrameLayout>

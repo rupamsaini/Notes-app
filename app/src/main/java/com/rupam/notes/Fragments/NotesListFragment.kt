@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.rupam.notes.Constants
 import com.rupam.notes.Data.NoteAdapter
 import com.rupam.notes.Model.Note
 import com.rupam.notes.R
@@ -41,23 +42,26 @@ class NotesListFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         currentUser = firebaseAuth.currentUser!!
         firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase.reference.child("Users").child(currentUser.uid)
+        databaseReference = firebaseDatabase.reference.child(Constants.USERS).child(currentUser.uid)
         databaseReference.keepSynced(true)
+
         noteList = ArrayList()
         recyclerView = recyclerViewId
         recyclerView.setHasFixedSize(true)
-        val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.reverseLayout = true
-        linearLayoutManager.stackFromEnd = true
-        recyclerView.setLayoutManager(linearLayoutManager)
-        recyclerView.setItemAnimator(DefaultItemAnimator())
-        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
+        val linearLayoutManager = GridLayoutManager(context, 2)
+//        linearLayoutManager.reverseLayout = true
+//        linearLayoutManager.stackFromEnd = true
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.itemAnimator = DefaultItemAnimator()
+//        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
         noteAdapter = NoteAdapter(requireContext(), noteList)
         ItemTouchHelper(itemTouch).attachToRecyclerView(recyclerView)
         recyclerView.adapter = noteAdapter
     }
 
-    var itemTouch: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+    private var itemTouch: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
             return false
         }

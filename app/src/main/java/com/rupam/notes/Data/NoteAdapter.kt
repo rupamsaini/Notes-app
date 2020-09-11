@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.rupam.notes.Model.Note
 import com.rupam.notes.R
@@ -55,6 +57,9 @@ class NoteAdapter(private val context: Context, private val noteList: MutableLis
                 val selectedItem = noteList[adapterPosition]
                 val selectedKey = selectedItem?.key
 
+                val bundle = bundleOf("title" to title.text.toString(), "body" to body.text.toString(), "userKey" to selectedKey)
+
+                Navigation.findNavController(it).navigate(R.id.action_notesListFragment_to_expandedNoteFragment, bundle)
 //                    TODO: Goto detailsActivity with details
 ////                val intent = Intent(context, NoteDetailsActivity::class.java)
 //                intent.putExtra("title", title.text.toString())

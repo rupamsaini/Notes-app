@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.LoginFragment">
+
+    <TextView
+        android:id="@+id/createAccText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign in"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#000"
+        />
+    <TextView
+        android:id="@+id/createAcc2Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="and keep all your notes secure"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_below="@id/createAccText"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#000"
+        />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signInCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="5dp"
+        app:cardMaxElevation="10dp"
+        android:layout_centerInParent="true"
+        >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activities.CreateAccActivity"
+        android:padding="20dp"
+        >
+
+
+
+        <EditText
+            android:id="@+id/emailInID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:hint="@string/signin_usr"
+            android:padding="10dp"
+            android:background="@drawable/edit_text_gray_bg"
+            android:textColorHint="#000"
+            android:textColor="#000"/>
+
+        <EditText
+            android:id="@+id/passInID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/sigin_pass"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:layout_below="@id/emailInID"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edit_text_gray_bg"
+            android:textColorHint="#000"
+            android:textColor="#000"
+            />
+
+
+
+        <include
+            android:id="@+id/progressBarLayout"
+            layout="@layout/progress_bar_text_layout"
+            android:visibility="gone"
+            />
+
+
+    </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/signinBtnID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signInCard"
+        android:background="@color/colorAccent"
+        android:text="@string/signin_btn"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:gravity="center"
+
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account?"
+        android:layout_marginBottom="10dp"
+       android:textColor="#000"
+        />
+    <Button
+        android:id="@+id/createAccBtnID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:text="@string/createAcctxt"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -2,17 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/addNew"
-        android:title="Add New"
-        app:showAsAction="ifRoom"
+
+    <item android:id="@+id/editNote"
+        android:title="Edit"
+        android:icon="@drawable/edit_note"
+        app:showAsAction="always"
         />
 
     <item android:id="@+id/menu_signout"
-        android:icon="@drawable/account_tool"
+        android:icon="@drawable/delete_note"
         app:showAsAction="always"
-        android:title=""
+        android:title="@string/delete"
         />
-
-
-
 </menu>

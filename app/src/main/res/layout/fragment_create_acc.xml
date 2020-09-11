@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.CreateAccFragment">
 
-    <ScrollView
+    <TextView
+        android:id="@+id/createAccText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#000"
+        />
+    <TextView
+        android:id="@+id/createAcc2Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="and keep all your notes secure"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_below="@id/createAccText"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#000"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signUpCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="5dp"
+        app:cardMaxElevation="20dp"
+        android:layout_below="@id/createAcc2Text"
+        android:layout_centerInParent="true"
         >
 
         <RelativeLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".Activities.CreateAccActivity"
@@ -25,7 +55,12 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/fullNameTxt"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:background="@drawable/edit_text_gray_bg"
+                android:padding="10dp"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:layout_marginTop="10dp"/>
 
             <EditText
                 android:id="@+id/emailCreateID"
@@ -35,7 +70,11 @@
                 android:layout_marginTop="47dp"
                 android:ems="10"
                 android:hint="@string/emailTxt"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:background="@drawable/edit_text_gray_bg"
+                android:padding="10dp"
+                android:textColor="#000"
+                android:textColorHint="#000"/>
 
             <EditText
                 android:id="@+id/passCreateID"
@@ -45,19 +84,66 @@
                 android:layout_marginTop="56dp"
                 android:ems="10"
                 android:hint="@string/passTxt"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:background="@drawable/edit_text_gray_bg"
+                android:padding="10dp"
+                android:textColor="#000"
+                android:textColorHint="#000"/>
 
-            <Button
-                android:id="@+id/createAccBtnID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/passCreateID"
-                android:layout_marginTop="105dp"
-                android:background="@color/colorPrimary"
-                android:text="@string/createBtn"
-                android:textColor="@android:color/white" />
+
         </RelativeLayout>
-    </ScrollView>
+
+        <include
+            android:id="@+id/progressBarLayout"
+            layout="@layout/progress_bar_text_layout"
+            android:visibility="gone"
+            />
 
 
-</FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/createAccBtnID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signUpCard"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+
+        android:background="@color/colorPrimary"
+        android:text="@string/createBtn"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        >
+    <TextView
+        android:id="@+id/alreadyAccText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account?"
+
+
+        />
+
+    <TextView
+        android:id="@+id/alreadyLogInText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="log in"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/colorPrimary"
+        />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

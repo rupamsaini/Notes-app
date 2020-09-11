@@ -6,47 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.MainActivity"
-    android:padding="10dp">
+   >
 
-    <EditText
-        android:id="@+id/emailInID"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/customToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="@string/signin_usr"
-        android:padding="10dp"/>
-
-    <EditText
-        android:id="@+id/passInID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/sigin_pass"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:layout_below="@id/emailInID"
-        android:layout_marginTop="20dp"
         />
 
-    <Button
-        android:id="@+id/signinBtnID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/passInID"
-        android:background="@color/colorAccent"
-        android:text="@string/signin_btn"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="20dp"/>
 
-    <Button
-        android:id="@+id/createAccBtnID"
+    <fragment
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"
-        android:text="@string/createAcctxt"
-        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        android:layout_below="@id/customToolbar"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         />
+
+
 </RelativeLayout>
